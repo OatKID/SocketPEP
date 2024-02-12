@@ -1,7 +1,7 @@
 import socket
 
 HOST = "localhost"
-PORT = 80
+PORT = 1200
 ADDR = (HOST, PORT)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -13,9 +13,11 @@ connection, client_address = s.accept()
 print("Connect already.")
 while True:
     data = connection.recv(1024).decode()
-    print("[RESPONE] -> %s"%(data))
     if not data:
+        print("[CLOSE SERVER]")
         connection.close()
         break
+    print("[GET] -> %s"%(data))
     data = data.upper()
+    print(f"[RESPONE] -> {data}")
     connection.send(data.encode())
