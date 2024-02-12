@@ -1,4 +1,7 @@
 import socket
+from Ai import StudentExamPerformance
+
+classification = StudentExamPerformance()
 
 HOST = "localhost"
 PORT = 1200
