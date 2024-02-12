@@ -15,12 +15,15 @@ print("waiting for connection...")
 connection, client_address = s.accept()
 print("Connect already.")
 while True:
-    data = connection.recv(1024).decode()
-    if not data:
+    ask = connection.recv(1024).decode()
+    if not ask:
         print("[CLOSE SERVER]")
         connection.close()
         break
-    print("[GET] -> %s"%(data))
-    data = data.upper()
-    print(f"[RESPONE] -> {data}")
-    connection.send(data.encode())
+    
+    hours = connection.recv(1024).decode()
+    print(hours)
+    if not hours:
+        connection.send(b"Fail")
+    else:
+        connection.send(b"Pass")
