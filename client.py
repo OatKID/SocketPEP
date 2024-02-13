@@ -1,5 +1,12 @@
 import socket
 
+def respone_OK(socket):
+    data = socket.recv(1024).decode()
+    print(f"[RESPONE] -> {data}")
+    if data == "OK [status 200 OK]":
+        return True
+    return False
+
 HOST = "localhost"
 PORT = 1200
 ADDR = (HOST, PORT)
@@ -15,8 +22,17 @@ while True:
         break
     s.send(ask.encode())
     
-    hours = input("Enter to study hours (0.00 - 12.00): ")
+    # Send hours of study
+    hours = input("Enter hours of study (0.00 - 12.00): ")
     s.send(hours.encode())
+    while not respone_OK(s):
+        hours = input("Enter to study hours (0.00 - 12.00) again: ")
+        s.send(hours.encode())
     
-    data = s.recv(1024).decode()
-    print(data)
+    # Send score of exam previous
+    score = input("Enter score of exam previous (0.00-100.00): ")
+    s.send(score.encode())
+    while not respone_OK(s):
+        hours = input("Enter score of exam previous (0.00-100.00) again: ")
+        s.send(hours.encode())
+    
