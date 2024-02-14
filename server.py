@@ -42,3 +42,9 @@ while True:
     # Recives data from client such as hours and scores
     hours = get_data_float(connection, 0.00, 12.00, "hours")
     scores = get_data_float(connection, 0.00, 100.00, "scores")
+    
+    result = classification.predict(hours, scores)
+    
+    result = f"Predict of student exam: {result}"
+    print(f"[RESPONE] -> Predict Complete -> \"{result}\" [status 210 OK Predict]")
+    connection.send(f"Predict Complete -> \"{result}\" [status 210 OK Predict]".encode())

@@ -2,7 +2,7 @@ import socket
 
 def respone_OK(socket):
     data = socket.recv(1024).decode()
-    print(f"[RESPONE] -> {data}")
+    print(f"[REVCIVE] -> {data}")
     if data == "OK [status 200 OK]":
         return True
     return False
@@ -36,3 +36,5 @@ while True:
         hours = input("Enter score of exam previous (0.00-100.00) again: ")
         s.send(hours.encode())
     
+    predict = s.recv(1024).decode()
+    print(f"[RESPONE] -> {predict}")
